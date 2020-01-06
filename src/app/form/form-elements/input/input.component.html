@@ -1,0 +1,10 @@
+<div class="form-group">
+  <label for="">{{field.label}}</label>
+  <input type="{{field.inputType}}" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+  <ng-container *ngFor="let validation of field.validations" ngProjectAs="div">
+    <div *ngIf="group.get(field.name).hasError(validation.name)" class="alert alert-danger" role="alert">
+      {{validation.message}}
+    </div>
+  </ng-container>
+
+</div>
