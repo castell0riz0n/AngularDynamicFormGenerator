@@ -108,6 +108,11 @@ export const PASSENGERS_MODEL = [
               id: 'pBirthDate',
               // label: "Label",
               placeholder: 'Birth Date ...'
+            }),
+            new DynamicInputModel({
+              id: 'pBirthDate',
+              // label: "Label",
+              placeholder: 'Birth Date ...'
             })
           ];
         }

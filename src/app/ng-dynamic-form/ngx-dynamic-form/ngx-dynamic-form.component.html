@@ -6,7 +6,6 @@
       (change)="onChange($event)" (focus)="onFocus($event)">
 
       <ng-template modelType="GROUP">
-        <p>1234</p>
       </ng-template>
 
       <ng-template modelType="ARRAY" let-context="context" let-index="index">
@@ -34,7 +33,7 @@
 
   </form>
 
-  <button class="btn btn-success" (click)="onSelectPastPassenger()" type="button">Test</button>
+  <button class="btn btn-success" (click)="test()" type="button">Test</button>
 
   <pre>{{formGroup.value | json}}</pre>
 

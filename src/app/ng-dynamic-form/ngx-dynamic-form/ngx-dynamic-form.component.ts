@@ -34,12 +34,7 @@ export class NgxDynamicFormComponent implements OnInit {
   formArray: FormArray;
   formArrayModel: DynamicFormArrayModel;
 
-  constructor(private formService: DynamicFormService) {
-    // const myform = this.formModel[0]['group'] as DynamicFormArrayModel[];
-    // const myControlIndex = myform.findIndex(a => a.id === 'passengersListGroup');
-    // myform[myControlIndex].initialCount = 3;
-    // this.formModel[0]['group'] = myform;
-  }
+  constructor(private formService: DynamicFormService) { }
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
@@ -49,9 +44,12 @@ export class NgxDynamicFormComponent implements OnInit {
 
     this.sampleFormControl = this.formService.findControlByModel<FormControl>(this.sampleFormControlModel, this.formGroup);
     this.formArray = this.formService.findControlByModel<FormArray>(this.formArrayModel, this.formGroup);
+
+    // === === === === === to Generate Passengers part by it's count === === === === ===
     for (let i = 0; i < this.arrayCount; i++) {
       this.insert(this.formArrayModel, 2);
     }
+    // === === === === === End === === === === === ===
   }
 
   getFormArray(model: DynamicFormArrayModel, group: FormGroup): FormArray {
@@ -75,28 +73,50 @@ export class NgxDynamicFormComponent implements OnInit {
   }
 
   test() {
+
     debugger;
-    this.sampleFormControlModel.disabled = !this.sampleFormControlModel.disabled;
-    this.sampleFormControlModel.value = 'Hello Hello';
 
-    (this.formArrayModel.get(1).group[0] as DynamicFormValueControlModel<any>).value = 'This is just a test';
+    // === === === For Form Arrays (Get Passengers by index) === === ===
+    // 1.For previous passenger this should call in a seperate method
+    // 2. i test this in ctor and ngOnInit and didn't work for me
+    const passengerArray = this.formService.findModelById<DynamicFormArrayModel>('passengersListGroup', this.formModel);
+    const passenger = (passengerArray.get(0).group[0] as DynamicFormValueControlModel<any>).value = 'Test';
+    this.formService.detectChanges(); // This will submit changes to Form and this is mandatory
+    // === === === === === === End === === === === ===
 
-    this.formService.moveFormArrayGroup(2, -1, this.formArray, this.formArrayModel);
 
-    this.formService.addFormGroupControl(
-      this.formGroup,
-      this.formModel,
-      new DynamicFormGroupModel({
-        id: 'bsFormGroup3',
-        group: [new DynamicInputModel({ id: 'newInput' })]
-      })
-    );
+    // === === === === === For Ticket Owner part and out of FormArray === === === === === ===
+    // 1. Data Should come from some where with constructor
+    // 2.this part should never written in ctor or ngOnInit
+    this.formService.findModelById<DynamicInputModel>('firstNameInput', this.formModel).value = 'Ali';
+    this.formService.findModelById<DynamicInputModel>('lastNameInput', this.formModel).value = 'Ali';
+    this.formService.findModelById<DynamicInputModel>('emailInput', this.formModel).value = 'ali@yahoo.com';
+    this.formService.findModelById<DynamicInputModel>('phoneInput', this.formModel).value = '09127335838';
+    this.formService.detectChanges(); // This will submit changes to Form and this is mandatory
+    // === === === === === === End === === === === ===
 
-    this.formService.addFormGroupControl(
-      this.formGroup.get('bsFormGroup3') as FormGroup,
-      this.formModel[2] as DynamicFormGroupModel,
-      new DynamicInputModel({ id: 'newInput' })
-    );
+    // const values = this.formGroup.value['ticketOwner'];
+    // this.sampleFormControlModel.disabled = !this.sampleFormControlModel.disabled;
+    // this.sampleFormControlModel.value = 'Hello Hello';
+
+    // (this.formArrayModel.get(1).group[0] as DynamicFormValueControlModel<any>).value = 'This is just a test';
+
+    // this.formService.moveFormArrayGroup(2, -1, this.formArray, this.formArrayModel);
+
+    // this.formService.addFormGroupControl(
+    //   this.formGroup,
+    //   this.formModel,
+    //   new DynamicFormGroupModel({
+    //     id: 'bsFormGroup3',
+    //     group: [new DynamicInputModel({ id: 'newInput' })]
+    //   })
+    // );
+
+    // this.formService.addFormGroupControl(
+    //   this.formGroup.get('bsFormGroup3') as FormGroup,
+    //   this.formModel[2] as DynamicFormGroupModel,
+    //   new DynamicInputModel({ id: 'newInput' })
+    // );
 
     this.formService.detectChanges();
   }
