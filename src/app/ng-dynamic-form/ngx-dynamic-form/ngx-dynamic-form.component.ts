@@ -133,16 +133,10 @@ export class NgxDynamicFormComponent implements OnInit {
     console.log(`FOCUS event on ${$event.model.id}: `, $event);
   }
 
-  onSelectPastPassenger() {
-    debugger;
-    const pIndex = 0;
-    const myform = this.formModel[0]['group'] as DynamicFormArrayModel[];
-    const myControlIndex = myform.findIndex(a => a.id === 'passengersListGroup');
-    const ctrl = myform[myControlIndex] as DynamicFormArrayModel;
-    const pfirstName = ctrl.groups[pIndex]['group'].find(a => a.id === 'pFirstName');
-    pfirstName['_value'] = 'xyz';
-    console.log(pfirstName);
-    console.log(this.formService.findById('pFirstName', this.formModel));
+  onSelectPastPassenger(index: number) {
+    const passengerArray = this.formService.findModelById<DynamicFormArrayModel>('passengersListGroup', this.formModel);
+    (passengerArray.get(index).group[0] as DynamicFormValueControlModel<any>).value = 'Test' + index;
+    (passengerArray.get(index).group[1] as DynamicFormValueControlModel<any>).value = 'famili' + index;
     this.formService.detectChanges();
   }
 
