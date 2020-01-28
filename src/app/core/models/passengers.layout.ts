@@ -24,15 +24,14 @@ export const PASSENGERS_FORM_LAYOUT = {
       control: 'col-sm-offset-3 col-sm-9'
     }
   },
-
-  [DYNAMIC_FORM_CONTROL_TYPE_ARRAY]: {
+  'passengersListGroup': {
     element: {
-      container: 'form-group form-array',
-      group: 'd-flex'
+      container: 'form-group form-array ali',
+      group: 'd-flex',
     },
     grid: {
       children: 'col-sm-2',
       label: 'col-sm-2'
-    }
+    },
   }
 };

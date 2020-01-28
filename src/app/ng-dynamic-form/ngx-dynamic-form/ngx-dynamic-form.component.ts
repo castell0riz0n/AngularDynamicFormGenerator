@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { PASSENGERS_MODEL } from '../../core/models/passengers.model';
 import {
@@ -21,7 +21,7 @@ import { PASSENGERS_FORM_LAYOUT } from '../../core/models/passengers.layout';
   templateUrl: './ngx-dynamic-form.component.html',
   styleUrls: ['./ngx-dynamic-form.component.scss']
 })
-export class NgxDynamicFormComponent implements OnInit {
+export class NgxDynamicFormComponent implements OnInit, AfterViewInit {
 
   formModel: DynamicFormControlModel[] = PASSENGERS_MODEL;
   formGroup: FormGroup;
@@ -34,7 +34,9 @@ export class NgxDynamicFormComponent implements OnInit {
   formArray: FormArray;
   formArrayModel: DynamicFormArrayModel;
 
-  constructor(private formService: DynamicFormService) { }
+  constructor(
+    private formService: DynamicFormService,
+    private elRef: ElementRef) { }
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
@@ -50,6 +52,12 @@ export class NgxDynamicFormComponent implements OnInit {
       this.insert(this.formArrayModel, 2);
     }
     // === === === === === End === === === === === ===
+  }
+
+  ngAfterViewInit() {
+
+    this.findElement();
+
   }
 
   getFormArray(model: DynamicFormArrayModel, group: FormGroup): FormArray {
@@ -140,4 +148,9 @@ export class NgxDynamicFormComponent implements OnInit {
     this.formService.detectChanges();
   }
 
+  findElement() {
+    const div = this.elRef.nativeElement.querySelector('.ali') as HTMLDivElement;
+    const prv = div.parentElement;
+    prv.classList.add('ali');
+  }
 }
