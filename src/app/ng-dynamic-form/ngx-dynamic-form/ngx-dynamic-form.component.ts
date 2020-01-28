@@ -15,6 +15,7 @@ import {
   DynamicFormLayout
 } from '@ng-dynamic-forms/core';
 import { PASSENGERS_FORM_LAYOUT } from '../../core/models/passengers.layout';
+import { BookRequestPassengers, TicketOwnerModel } from 'src/app/core/models/bookRequestPassengers.model';
 
 @Component({
   selector: 'app-ngx-dynamic-form',
@@ -83,6 +84,22 @@ export class NgxDynamicFormComponent implements OnInit, AfterViewInit {
   test() {
 
     debugger;
+
+    // === === === in this way you can get all form input values === === ===
+    // This is useful for filling book request passengers with user input;
+    // use First Way
+    const getAllPassengersValue = this.formGroup.value.ticketOwner.passengersListGroup;
+    // or second way
+    const allPassengersvalue = this.formGroup.value['ticketOwner']['passengersListGroup'] as BookRequestPassengers[];
+    allPassengersvalue.forEach((pass, index) => {
+      console.log(`${index} : ${JSON.stringify(pass)}`);
+    });
+
+    // Extract Ticket owner information
+    const ticketOwnerInfo = this.formGroup.value['ticketOwner'] as TicketOwnerModel;
+    console.log('Ticket Owner : ', JSON.stringify(ticketOwnerInfo));
+    
+    // === === === === === End === === === === ===
 
     // === === === For Form Arrays (Get Passengers by index) === === ===
     // 1.For previous passenger this should call in a seperate method
