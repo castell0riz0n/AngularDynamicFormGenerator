@@ -19,6 +19,7 @@ import { RadioComponent } from './form/form-elements/radio/radio.component';
 import { SelectComponent } from './form/form-elements/select/select.component';
 import { NgxDynamicFormComponent } from './ng-dynamic-form/ngx-dynamic-form/ngx-dynamic-form.component';
 import { FormTestComponent } from './forms/form-test/form-test.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormTestComponent } from './forms/form-test/form-test.component';
     SelectComponent,
     DynamicFieldDirective,
     NgxDynamicFormComponent,
-    FormTestComponent
+    FormTestComponent,
+    ReactiveFormComponent
   ],
   imports: [
     BrowserModule,
