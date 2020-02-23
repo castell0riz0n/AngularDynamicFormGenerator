@@ -2,18 +2,39 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <div formGroupName="userData">
+        <div formGroupName="ticketOwner">
           <div class="form-group">
-            <label for="username">User Name</label>
-            <input type="text" id="username" class="form-control" formControlName="username" />
+            <label for="firstName">Name</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName" />
             <span class="form-text text-muted" *ngIf="
-                signupForm.get('userData.username').invalid &&
-                signupForm.get('userData.username').touched
+                signupForm.get('ticketOwner.firstName').invalid &&
+                signupForm.get('ticketOwner.firstName').touched
               ">
-              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">
-                This is a invalid username
+              <span *ngIf="signupForm.get('ticketOwner.firstName').errors['required']">
+                This field is required
               </span>
-              <span *ngIf="signupForm.get('userData.username').errors['required']">
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastName" />
+            <span class="form-text text-muted" *ngIf="
+                signupForm.get('ticketOwner.lastName').invalid &&
+                signupForm.get('ticketOwner.lastName').touched
+              ">
+              <span *ngIf="signupForm.get('ticketOwner.lastName').errors['required']">
+                This field is required
+              </span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" />
+            <span class="form-text text-muted" *ngIf="
+                signupForm.get('ticketOwner.phoneNumber').invalid &&
+                signupForm.get('ticketOwner.phoneNumber').touched
+              ">
+              <span *ngIf="signupForm.get('ticketOwner.phoneNumber').errors['required']">
                 This field is required
               </span>
             </span>
@@ -22,28 +43,66 @@
             <label for="email">Email</label>
             <input type="text" id="Email" class="form-control" formControlName="email" />
             <span class="form-text text-muted" *ngIf="
-                signupForm.get('userData.email').invalid &&
-                signupForm.get('userData.email').touched
+                signupForm.get('ticketOwner.email').invalid &&
+                signupForm.get('ticketOwner.email').touched
               ">please enter a valid email</span>
           </div>
         </div>
-
-        <div class="radio" *ngFor="let gender of genders">
+        <!-- <div class="radio" *ngFor="let gender of genders">
           <label for="username">
             <input type="radio" [value]="gender" formControlName="gender" />
             {{ gender }}
           </label>
-        </div>
-        <div formArrayName="hobbies">
-          <h4>Your Hobbies</h4>
-          <button type="button" class="btn btn-default" (click)="onAddHobby()">Add Hobby</button>
-          <div class="form-group"
-            *ngFor="let hobby of signupForm.get('hobbies')['controls'] as FormControl; let i = index">
-            <input type="text" class="form-control" [formControlName]="i">
-            <span class="form-text text-muted" *ngIf="
-            signupForm.get('hobbies')['controls'][i].invalid &&
-            signupForm.get('hobbies')['controls'][i].touched
-          ">please enter a valid username</span>
+        </div> -->
+        <div formArrayName="passengers">
+          <h4>Passengers</h4>
+          <button type="button" class="btn btn-danger" (click)="onAddPassenger()">Add Passenger</button>
+          <div *ngFor="let passGroup of signupForm.get('passengers')['controls'] as FormGroup; let i = index">
+            <p>Passenger Number {{i}}</p>
+            <button type="button" class="btn btn-primary" (click)="fillPreviousPassenger(i)">Previous P</button>
+            <button type="button" class="btn btn-secondary" (click)="removePassenger(i)">Remove P</button>
+            <div [formGroupName]="i">
+              <div class="form-group">
+                <label for="gender">Select Gender</label>
+                <select class="form-control" id="gender" formControlName="gender">
+                  <option *ngFor="let gen of genders">{{gen}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="firstName">
+                <span class="form-text text-muted" *ngIf="
+               passGroup.get('firstName').invalid &&
+               passGroup.get('firstName').touched
+         ">please enter a valid data</span>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="lastName">
+                <span class="form-text text-muted" *ngIf="
+               passGroup.get('lastName').invalid &&
+               passGroup.get('lastName').touched
+         ">please enter a valid data</span>
+              </div>
+              <div class="form-group">
+                <input type="datetime" class="form-control" formControlName="birthDate">
+                <span class="form-text text-muted" *ngIf="
+               passGroup.get('birthDate').invalid &&
+               passGroup.get('birthDate').touched
+         ">please enter a valid data</span>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="nationalId">
+                <span class="form-text text-muted" *ngIf="
+               passGroup.get('nationalId').invalid &&
+               passGroup.get('nationalId').touched
+         ">please enter a valid data</span>
+              </div>
+              <div class="form-group">
+                <label for="country">Select Nationality</label>
+                <select class="form-control" id="country" formControlName="country">
+                  <option *ngFor="let con of nationality">{{con}}</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <span class="form-text text-muted" *ngIf="signupForm.invalid && signupForm.touched">please enter valid
