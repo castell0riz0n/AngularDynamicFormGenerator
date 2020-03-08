@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import {
   DynamicFormsNGxBootstrapUIModule
 } from '@ng-dynamic-forms/ui-ngx-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFieldDirective } from './form/dynamic-field/dynamic-field.directive';
@@ -19,6 +19,7 @@ import { RadioComponent } from './form/form-elements/radio/radio.component';
 import { SelectComponent } from './form/form-elements/select/select.component';
 import { NgxDynamicFormComponent } from './ng-dynamic-form/ngx-dynamic-form/ngx-dynamic-form.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { MyChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
     SelectComponent,
     DynamicFieldDirective,
     NgxDynamicFormComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    MyChartComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
     FormsModule,
     ReactiveFormsModule,
     DynamicFormsNGxBootstrapUIModule,
+    NgApexchartsModule,
     TextMaskModule
   ],
   providers: [],
