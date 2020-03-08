@@ -98,7 +98,7 @@ export class NgxDynamicFormComponent implements OnInit, AfterViewInit {
     // Extract Ticket owner information
     const ticketOwnerInfo = this.formGroup.value['ticketOwner'] as TicketOwnerModel;
     console.log('Ticket Owner : ', JSON.stringify(ticketOwnerInfo));
-    
+
     // === === === === === End === === === === ===
 
     // === === === For Form Arrays (Get Passengers by index) === === ===
